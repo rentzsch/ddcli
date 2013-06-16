@@ -103,9 +103,17 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
         _getoptFunction = dd_getopt_long;
 }
 
-- (void)addOptionsFromTable:(DDGetoptOption *)optionTable;
+- (void)addOptions:(NSArray *)options {
+    for (DDGetoptOption *currentOption in options)
+        [self addLongOption:currentOption.longOption
+                shortOption:currentOption.shortOption
+                        key:[self optionToKey: currentOption.longOption]
+            argumentOptions:currentOption.argumentOptions];
+}
+
+- (void)addOptionsFromTable:(OldDDGetoptOption *)optionTable;
 {
-    DDGetoptOption * currentOption = optionTable;
+    OldDDGetoptOption * currentOption = optionTable;
     while ((currentOption->longOption != nil) ||
            (currentOption->shortOption != 0))
     {

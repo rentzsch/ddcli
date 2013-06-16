@@ -61,7 +61,7 @@
 - (void)application:(DDCliApplication *)app
    willParseOptions:(DDGetoptLongParser *)optionsParser;
 {
-    DDGetoptOption optionTable[] = 
+    OldDDGetoptOption optionTable[] = 
     {
         // Long         Short   Argument options
         {@"foo",        'f',    DDGetoptRequiredArgument},

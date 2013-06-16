@@ -54,19 +54,28 @@ typedef enum DDGetoptArgumentOptions
 } DDGetoptArgumentOptions;
 
 /**
- * Structure to use for option tables.
+ * Object for safe option tables under ARC.
  */
-typedef struct
+@interface DDGetoptOption : NSObject
+/**
+ * The long option without the double dash ("--").  This is required.
+ */
+@property (retain) NSString * longOption;
+/** A single character for the short option.  Maybe be null or 0. */
+@property (assign) int shortOption;
+/** Argument options for this option. */
+@property (assign) DDGetoptArgumentOptions argumentOptions;
+@end
+
+/**
+ * Legacy structure to use for option tables.
+ */
+typedef struct OldDDGetoptOption
 {
-    /**
-     * The long option without the double dash ("--").  This is required.
-     */
-    NSString * longOption;
-    /** A single character for the short option.  Maybe be null or 0. */
+    __unsafe_unretained NSString * longOption;
     int shortOption;
-    /** Argument options for this option. */
     DDGetoptArgumentOptions argumentOptions;
-} DDGetoptOption;
+} OldDDGetoptOption;
 
 /**
  * A command line option parser implemented using <a
@@ -131,13 +140,20 @@ typedef struct
 - (void)setGetoptLongOnly:(BOOL)getoptLongOnly;
 
 /**
- * Add all options from a null terminated option table.  The final
- * entry in the table should contain a nil long option and a null
- * short option.
+ * Add all options from an array.
  *
  * @param optionTable An array of DDGetoptOption.
  */
-- (void)addOptionsFromTable:(DDGetoptOption *)optionTable;
+- (void)addOptions:(NSArray *)options;
+
+/**
+ * For backward compatibility, add all options from a null terminated
+ * option table.  The final entry in the table should contain a nil
+ * long option and a null short option.
+ *
+ * @param optionTable An array of OldDDGetoptOption.
+ */
+- (void)addOptionsFromTable:(OldDDGetoptOption *)optionTable;
 
 /**
  * Add an option with both long and short options.  The long option

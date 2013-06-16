@@ -6,7 +6,7 @@
    willParseOptions:(DDGetoptLongParser *)optionsParser;
 {
     [optionsParser setGetoptLongOnly:YES];
-    DDGetoptOption optionTable[] = 
+    OldDDGetoptOption optionTable[] = 
     {
         // Long         Short   Argument options
         {@"output",     'o',    DDGetoptRequiredArgument},
