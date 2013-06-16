@@ -35,7 +35,7 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
 
 @interface DDGetoptLongParser ()
 
-- (NSString *)optionToKey:(NSString *)option;
++ (NSString *)optionToKey:(NSString *)option;
 - (struct option *)firstOption;
 - (struct option *)currentOption;
 - (void)addOption;
@@ -107,7 +107,7 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
     for (DDGetoptOption *currentOption in options)
         [self addLongOption:currentOption.longOption
                 shortOption:currentOption.shortOption
-                        key:[self optionToKey: currentOption.longOption]
+                        key:[self.class optionToKey: currentOption.longOption]
             argumentOptions:currentOption.argumentOptions];
 }
 
@@ -119,7 +119,7 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
     {
         [self addLongOption: currentOption->longOption
                 shortOption: currentOption->shortOption
-                        key: [self optionToKey: currentOption->longOption]
+                        key: [self.class optionToKey: currentOption->longOption]
             argumentOptions: currentOption->argumentOptions];
         currentOption++;
     }
@@ -268,7 +268,7 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
 	}
 }
 
-- (NSString *)optionToKey:(NSString *)option;
++ (NSString *)optionToKey:(NSString *)option;
 {
     NSScanner * scanner = [NSScanner scannerWithString: option];
     [scanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString: @"-"]];
