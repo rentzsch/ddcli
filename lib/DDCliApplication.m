@@ -152,15 +152,11 @@ DDCliApplication * DDCliApp = nil;
 
 int DDCliAppRunWithClass(Class delegateClass)
 {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    // Initialize singleton/global
-    DDCliApplication * app = [DDCliApplication sharedApplication];
-    int result = [app runWithClass: delegateClass];
-
-    [pool drain];
-    
-    return result;
+    @autoreleasepool {
+        // Initialize singleton/global
+        DDCliApplication * app = [DDCliApplication sharedApplication];
+        return [app runWithClass: delegateClass];
+    }
 }
 
 int DDCliAppRunWithDefaultClass()
