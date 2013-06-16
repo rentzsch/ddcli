@@ -74,16 +74,6 @@ dd_getopt_long_only(int nargc, char * const *nargv, const char *options,
     return self;
 }
 
-- (void)dealloc
-{
-    [_optionInfoMap release];
-    [_optionString release];
-    [_optionsData release];
-    [_utf8Data release];
-    
-    [super dealloc];
-}
-
 - (id)target;
 {
     return _target;

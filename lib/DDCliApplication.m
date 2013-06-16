@@ -58,13 +58,6 @@ DDCliApplication * DDCliApp = nil;
     return self;
 }
 
-- (void)dealloc
-{
-    [_name release];
-    
-    [super dealloc];
-}
-
 - (NSString *)name;
 {
     return _name;
@@ -117,22 +110,16 @@ DDCliApplication * DDCliApp = nil;
 - (int)runWithClass:(Class)delegateClass
 {
     id<DDCliApplicationDelegate> delegateInstance = nil;
-    @try {
-        if (delegateClass == nil)
-            delegateClass = [self findFirstDelegateClass];
-        if (delegateClass == nil)
-        {
-            ddfprintf(stderr, @"%@: delegate class not found\n", self);
-            return EX_CONFIG;
-        }
-        
-        delegateInstance = [[delegateClass alloc] init];
-        return [self runWithDelegate:delegateInstance arguments:nil];
-    }
-    @finally {
-        [delegateInstance release];
+    if (delegateClass == nil)
+        delegateClass = [self findFirstDelegateClass];
+    if (delegateClass == nil)
+    {
+        ddfprintf(stderr, @"%@: delegate class not found\n", self);
+        return EX_CONFIG;
     }
     
+    delegateInstance = [[delegateClass alloc] init];
+    return [self runWithDelegate:delegateInstance arguments:nil];    
 }
 
 - (Class)findFirstDelegateClass;
