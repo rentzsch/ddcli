@@ -53,7 +53,7 @@ DDCliApplication * DDCliApp = nil;
         return nil;
     
     NSProcessInfo * processInfo = [NSProcessInfo processInfo];
-    _name = [[processInfo processName] retain];
+    _name = [processInfo processName];
     
     return self;
 }
