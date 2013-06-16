@@ -1,2 +1,8 @@
 build
-
+*~.nib
+*.swp
+*.orig
+.DS_Store
+*.pbxuser
+*.perspectivev3
+*.xcuserdatad
