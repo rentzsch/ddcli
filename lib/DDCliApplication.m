@@ -145,7 +145,7 @@ DDCliApplication * DDCliApp = nil;
     
     if (numClasses > 0 )
     {
-        classes = alloca(sizeof(Class) * numClasses);
+        classes = (Class *) alloca(sizeof(Class) * numClasses);
         numClasses = objc_getClassList(classes, numClasses);
     }
     int i;
